@@ -12,7 +12,12 @@ export const Expenses = (props) => {
   };
 
   const getExpenseItems = (expenses) => {
-    return expenses.map((expense) => {
+    const filteredArray = expenses.filter((expense) => {
+      return expense.date.getFullYear().toString() === filteredYear;
+    })
+
+    return filteredArray.map((expense) => {
+      console.log(expense.date.getFullYear());
       return (
         <ExpenseItem
           key={expense.id}
