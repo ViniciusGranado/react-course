@@ -14,25 +14,31 @@ export const Expenses = (props) => {
   const getExpenseItems = (expenses) => {
     const filteredArray = expenses.filter((expense) => {
       return expense.date.getFullYear().toString() === filteredYear;
-    })
+    });
 
-    return filteredArray.map((expense) => {
-      console.log(expense.date.getFullYear());
-      return (
-        <ExpenseItem
-          key={expense.id}
-          title={expense.title}
-          amount={expense.amount}
-          date={expense.date}
-      />
-      )
-    })
-  }
+    return filteredArray.length ? (
+      filteredArray.map((expense) => {
+        return (
+          <ExpenseItem
+            key={expense.id}
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        );
+      })
+    ) : (
+      <p>No expenses found.</p>
+    );
+  };
 
   return (
     <>
       <Card className="Expenses">
-        <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
+        <ExpensesFilter
+          selected={filteredYear}
+          onChangeFilter={filterChangeHandler}
+        />
         {getExpenseItems(props.items)}
       </Card>
     </>
